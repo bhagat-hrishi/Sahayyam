@@ -1,0 +1,81 @@
+<style>
+    button{
+        width:48%;
+    }
+    .card{
+    margin: 100px auto;
+    width: 50%;
+    opacity: 0.9;
+    color: black;
+    border: none;
+    }
+    h2{
+      color: red;
+      font-weight: bold;
+      margin-left: 400px;
+    }
+</style>
+
+<!--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% SIGN IN FROM  START %%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
+<div class="card" *ngIf="!recoverpassdisplay">  
+  <div class="card-body">  
+    <form [formGroup]='rsigninform'>  
+      <div class="form-group" >  
+        <label class="col-md-4">NGO Name</label>  
+        <input type="text"  formControlName='ngoname' placeholder="NGO Name" class="form-control" />  
+      </div>  
+      <div class="form-group">  
+        <label class="col-md-4">Email</label>  
+        <input type="email" formControlName='email'  class="form-control" > 
+      </div>  
+      <div class="form-group">  
+        <label class="col-md-4">Password</label>  
+        <input type="password" formControlName='password' placeholder="min 6 character" min="6" class="form-control" />  
+      </div>
+    <div class="form-group">  
+        <button type="submit" class="btn btn-success"  [disabled]='!rsigninform.valid' (click)="checkData(rsigninform)">Login</button>&nbsp;  
+        <button class="btn btn-primary" (click)="recoverPass()">Forgot Password</button>
+    </div>
+    </form>  
+    <a routerLink="['']" (click)="gotosignup()" style="text-decoration:none">If don't have account then create</a>
+  </div>  
+</div> 
+
+<!--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% SIGN IN FROM  END %%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
+    <h2>{{success}}</h2>
+
+    <div class="text-center" *ngIf="display">
+    <div class="spinner-border" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+    </div>
+
+<!--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  PASSWORD RECOVER FORM START %%%%%%%%%%%%%%%%%%%%%%%%%%-->
+<div *ngIf="recoverpassdisplay" class="card" style="padding:20px;">
+
+  <form [formGroup]='recoverform'>
+    <div>
+      <input type="email" formControlName='email' placeholder="email"  class="form-control">
+    </div>
+
+    <div>
+      <br>
+      <input type="password" formControlName='password' placeholder="new password (min 6 character long)"
+        class="form-control">
+    </div>
+
+    <div>
+      <br>
+      <input type="password" formControlName='confirmpassword' placeholder="confirm password (min 6 character long)"
+        class="form-control">
+    </div>
+
+    <div class="form-group">
+      <br>
+      <button type="button" class="btn btn-success" style="width: 45%;" [disabled]='!recoverform.valid'(click)="updatePass(recoverform)">recover</button>&nbsp;
+      <button type="reset" class="btn btn-primary" style="width: 45%;">reset</button>
+    </div>
+  </form>
+</div>
+
+<!--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  PASSWORD RECOVER FORM END %%%%%%%%%%%%%%%%%%%%%%%%%%-->

@@ -1,0 +1,150 @@
+<html>
+  <!--Use logo-->
+
+  <style>
+
+   
+    .forspecificbutton{
+        margin:35px;
+    }
+    body{
+      background-color:rgba(242, 245, 240, 0.5);
+    }
+    table{
+      border: 2px solid rgb(0, 0, 0);
+      font-weight: bold;
+      
+    }
+    tr > td{
+      color: #006b38ff;
+    }
+    th{
+      color: #101820ff;
+    }
+    tr{
+      border-bottom: 2px solid black;
+    }
+
+    /*for logo*/
+    .topright {
+      position: fixed;
+      top: 0px;
+      right: 16px;
+     }
+     .topright a{
+       margin:auto;
+      }
+    img{
+      width: 160px;
+      height: 160px;
+      align-items: center;
+    }
+    h3{
+      top:0px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+
+    /*to change color of button when hover*/
+    .forblue:hover,
+    .forblue:active{
+        color: blue;
+        background-color:lightblue;
+        border: 2px solid blue;
+    }
+    .forred:hover,
+    .forred:active{
+      color: red;;
+      background-color:rgb(248, 185, 185);
+      border: 2px solid red;
+    }
+    
+  </style>
+  <body>
+
+
+  <!-- display  All receiver-->
+  <button (click)="getallreceivers()" class="btn btn-primary forspecificbutton forblue">Get All Receivers</button>
+  <!-- selected item for donation-->
+  <button (click)="displayDonateItems()" class="btn btn-danger forspecificbutton forred">Select Items To Donate</button>
+  <!--map component-->
+  <button (click)="searchLocation()" class="btn btn-primary forspecificbutton forblue">Search Ngo</button>
+    <!--delete my account-->
+  <button (click)="deleteAaccount()" class="btn btn-danger delete forred" style="text-align: center;">Delete Account</button>
+  <!--to logout-->
+  <button  (click)="Logout()" class="btn btn-primary forspecificbutton forblue">Logout</button>
+
+<div class="topright">
+  <a href=""><img src="assets/images/userlogo.png" alt="uselogo"></a>
+  <h3>{{email}}</h3>
+</div>
+
+
+
+
+<!-- showing all receivers -->
+<div *ngIf="showreceivers" style="padding-top: 100px;">
+<table class="table table-hover" >
+    <thead>
+        <tr>
+            <th scope="col">No.</th>
+            <th scope="col">NGO Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Address</th>
+	          <th scope="col">Contact</th>
+            <th scope="col">Website</th>
+            <th scope="col">Send Notification</th>
+    </tr>
+    </thead>
+    <tbody>
+	    <tr scope="row" *ngFor="let receiver of receiverarray ; let i=index">
+        <td>{{i+1}}</td>
+			<td>{{receiver.ngoname}}</td>
+            <td>{{receiver.email}}</td>
+            <td>{{receiver.address}}</td>
+            <td>{{receiver.contact}}</td>
+            <td><a href="{{receiver.ngourl}}" target="_blank">{{receiver.ngoname}}</a></td>
+            <td><button class="btn btn-warning" (click)="donateToThisNgo(receiver)" data-toggle="tooltip" data-placement="top" title="Click to send notification to ngo">send</button></td>
+        </tr>
+        
+    </tbody>
+</table>
+</div>
+
+
+
+
+<!-- donation option-->
+<div class="page" *ngIf="donate">
+  
+<label class="container">Food
+  <input type="checkbox" [checked]="food" (change)="food=!food">
+  <span class="checkmark"></span>
+</label>
+<label class="container">Cloths
+  <input type="checkbox" [checked]="cloth" (change)="cloth=!cloth">
+  <span class="checkmark"></span>
+</label>
+<label class="container">Money
+  <input type="checkbox" [checked]="money" (change)="money=!money">
+  <span class="checkmark"></span>
+</label>
+<label class="container">Other
+  <input type="checkbox" [checked]="other" (change)="other=!other">
+  <span class="checkmark"></span>
+</label>
+
+</div>
+
+  
+<!--show location-->
+<div *ngIf="showlocation">
+   <app-maps></app-maps>
+</div>
+</body>
+</html>
+
+
+
+

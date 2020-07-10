@@ -1,0 +1,68 @@
+<style>
+    button{
+        width:50%;
+    }
+    .card{
+    margin: 100px auto;
+    width: 50%;
+    opacity: 0.9;
+    color: black;
+    border: none;
+    }
+</style>
+
+<!--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% SIGNUP FORM  START %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
+<div class="card">  
+  <div class="card-body">  
+    <form [formGroup]='rsignupform'>  
+      <div class="form-group" >  
+        <label class="col-md-4">NGO Name</label>  
+        <input type="text"  formControlName='ngoname' placeholder="NGO Name" class="form-control" />  
+      </div>  
+      <div class="form-group">  
+        <label class="col-md-4">Email</label>  
+        <input type="email" formControlName='email'  class="form-control" > 
+        <div *ngIf="f.email.touched && f.email.invalid" class="alert alert-danger">
+          <div *ngIf="f.email.errors.required">email is required.</div>
+          <div *ngIf="f.email.errors?.pattern">Please provide a valid mail</div>
+        </div>
+      </div>  
+      <div class="form-group">  
+        <label class="col-md-4">Password</label>  
+        <input type="password" formControlName='password' placeholder="min 6 character" min="6" class="form-control" />
+        <div *ngIf="f.password.touched && f.password.invalid" class="alert alert-danger">
+          <div *ngIf="f.password.errors.required">Password is required.</div>
+          <div *ngIf="f.password.errors?.minlength">Password must be at least 6 characters long.</div>
+        </div>
+      </div>
+      <div class="form-group">  
+        <label class="col-md-4">Address</label>  
+        <input type="text" formControlName='address' class="form-control" />  
+      </div>
+      <div class="form-group">  
+        <label class="col-md-4">Contact Number</label>  
+        <input type="tel" min="10" max="10" formControlName='contact'class="form-control" />  
+        <div *ngIf="f.contact.touched && f.contact.invalid" class="alert alert-danger">
+          <div *ngIf="f.contact.errors.required">Mobile Number is required.</div>
+          <div *ngIf="f.contact.errors.pattern">Please, Enter 10 digit Mobile Number.</div>
+        </div>
+      </div>
+      <div class="form-group">  
+        <label class="col-md-4">NGO website URL</label>  
+        <input type="text" formControlName='ngourl' class="form-control" />  
+      </div>
+       <div class="form-group">  
+        <button type="button" class="btn btn-success" [disabled]='!rsignupform.valid' (click)="submitData(rsignupform)" >Submit</button>  
+        <button type="reset" class="btn btn-primary" (click)='resetForm()'>Reset</button>  
+        </div>
+    </form>  
+        <a routerLink="['']" (click)="gotosignin()" style="text-decoration:none">If allready have account then login </a>
+
+  </div>  
+</div> 
+
+<!--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% SIGNUP FORM  START %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
+
+
+
+<h2>{{validation}}</h2>

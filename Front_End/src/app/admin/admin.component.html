@@ -1,0 +1,127 @@
+
+<html>
+<style type="text/css">
+body{
+   background-color:rgba(242, 245, 240, 0.5);
+   font-weight: bold;
+}
+h1{
+  text-align:center;
+  padding:30px 5px;
+}
+button{
+  margin:5px;
+}
+
+ .card{
+    margin: 100px auto;
+    width: 50%;
+    opacity: 0.9;
+    color: black;
+    border: none;
+    padding: 25px;
+    }
+</style>
+
+<body>
+<h1><b>😎Welcome Admin😎</b></h1>
+<!--to display form-->
+<div class="card" *ngIf="!valid">
+  <div class="card-body">
+        <form [formGroup]='adminform' (ngSubmit)="submit(adminform)" *ngIf="!valid">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Username</label>
+            <input type="text" formControlName='adminname' class="form-control" id="exampleInputEmail1"
+              aria-describedby="emailHelp" placeholder="Enter Your Username">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Password</label>
+            <input type="password" formControlName='adminpassword' class="form-control" id="exampleInputPassword1"
+              placeholder="Password">
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary" [disabled]="!adminform.valid">Submit</button>
+          </div>
+        </form>
+  </div>
+  
+</div>
+
+<!-- display form end-->
+
+
+
+
+
+
+<!-- buttons -->
+<button  *ngIf="valid" (click)="getalldonors()" class="btn btn-dark">Get All Donors</button>
+<button *ngIf="valid" (click)="getallreceivers()" class="btn btn-dark">Get All Receivers</button>
+<button *ngIf="valid" (click)="Logout()" class="btn btn-danger">Logout</button>
+<!-- buttons end -->
+
+
+<!--for donors-->
+<div *ngIf="showdonors && valid">
+<table class="table" >
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">No</th>
+      <th scope="col">Hotel Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Password</th>
+      <th scope="col">Address</th>
+	    <th scope="col">Contact</th>
+      <th scope="col" colspan="2">Modify<th>
+    </tr>
+  </thead>
+  <tbody>
+	<tr scope="row" *ngFor="let donor of donorarray ;let i=index" >
+            <td>{{i+1}}</td>
+           <!-- <td>{{donor._id}}</td> -->
+			      <td>{{donor.hname}}</td>
+            <td>{{donor.email}}</td>
+            <td>{{donor.password}}</td>
+            <td>{{donor.address}}</td>
+            <td>{{donor.contact}}</td>
+            <td><button class="btn btn-danger" (click)="deleteDonor(donor)">Delete</button></td>
+		</tr> 
+  </tbody>
+</table>
+</div>
+ 
+ <div *ngIf="showreceivers && valid"> 
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">No</th>
+      <th scope="col">NGO Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Password</th>
+      <th scope="col">Address</th>
+	    <th scope="col">Contact</th>
+      <th scope="col">website</th>
+      <th scope="col">Modify<th>
+    </tr>
+  </thead>
+  <tbody>
+	<tr scope="row" *ngFor="let receiver of receiverarray ;let i=index">
+            <td>{{i+1}}</td>
+			      <td>{{receiver.ngoname}}</td>
+            <td>{{receiver.email}}</td>
+            <td>{{receiver.password}}</td>
+            <td>{{receiver.address}}</td>
+            <td>{{receiver.contact}}</td>
+            <td><a href="{{receiver.ngourl}}" target="_blank">{{receiver.ngoname}}</a></td>
+            <td><button (click)="deleteReceiver(receiver)"class="btn btn-danger">Delete</button></td>
+            <td></td>
+
+		</tr>
+  </tbody>
+</table>
+</div>
+
+</body>
+</html>                                		                            
+
+ 
